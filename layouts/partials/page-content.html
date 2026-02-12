@@ -1,0 +1,11 @@
+{{/* Generic page wrapper: title + optional description + content */}}
+<article class="page">
+  <header class="pagehead">
+    {{ if .Title }}<h1>{{ .Title }}</h1>{{ end }}
+    {{ with .Description }}<p class="desc">{{ . }}</p>{{ end }}
+  </header>
+
+  <section class="content content-boxes">
+    {{ .Content }}
+  </section>
+</article>

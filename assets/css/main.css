@@ -1,0 +1,473 @@
+/* ParaAdapt — Bright playful “science” theme + fullscreen circular network background
+   Drop-in replacement for assets/css/main.css (Hugo Pipes) OR static/css/main.css (static).
+*/
+
+/* ===== Tokens ===== */
+:root{
+  --paper: #F7FAFF;
+  --paper2:#EFF5FF;
+
+  --ink: rgba(12, 20, 35, 0.92);
+  --muted: rgba(12, 20, 35, 0.70);
+
+  --a1: #2F80ED;  /* blue */
+  --a2: #7B61FF;  /* violet */
+  --a3: #14B8A6;  /* teal */
+  --a4: #F59E0B;  /* amber */
+  --a5: #FF007A;  /* pink */
+
+  --line: rgba(12, 20, 35, 0.12);
+
+  --card: rgba(255,255,255,0.78);
+  --card2: rgba(255,255,255,0.92);
+
+  --shadow: 0 18px 50px rgba(12, 20, 35, 0.10);
+  --shadow2: 0 10px 25px rgba(12, 20, 35, 0.08);
+
+  --radius: 18px;
+  --radius2: 22px;
+
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+
+body{
+  margin:0;
+  color:var(--ink);
+  font: 16px/1.65 var(--sans);
+  overflow-x:hidden;
+
+  /* IMPORTANT: keep body transparent so .bg layers can render behind content */
+  background: transparent;
+}
+
+/* ===== Background stack (this is the critical part) ===== */
+.bg{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* soft “color spheres” live here (not on body) */
+.bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(900px 520px at 16% 12%, rgba(47,128,237,0.16), transparent 60%),
+    radial-gradient(900px 520px at 82% 10%, rgba(123,97,255,0.14), transparent 62%),
+    radial-gradient(900px 520px at 58% 92%, rgba(20,184,166,0.13), transparent 55%),
+    radial-gradient(850px 520px at 18% 88%, rgba(245,158,11,0.11), transparent 56%),
+    radial-gradient(850px 520px at 92% 78%, rgba(255,0,122,0.09), transparent 58%),
+    linear-gradient(180deg, var(--paper), var(--paper2));
+  z-index: 0;
+}
+
+/* Fullscreen network layer — force it to fill the viewport */
+.bg-graph{
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  opacity: 0.95;
+  pointer-events: none;
+
+  /* gentle drift (won’t “corner” because inset:0 + fixed) */
+  animation: bgFloat 18s ease-in-out infinite;
+}
+.bg-graph svg{
+  width: 100%;
+  height: 100%;
+  display:block;
+}
+
+/* Optional grid overlay */
+.bg-grid{
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background-image:
+    linear-gradient(to right, rgba(12,20,35,0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(12,20,35,0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity:0.35;
+  mask-image: radial-gradient(1000px 640px at 50% 18%, rgba(0,0,0,0.95), transparent 72%);
+}
+
+/* Keep any legacy layers from earlier iterations from covering the network */
+.bg-orbs, .bg-stars{ display:none; }
+
+@keyframes bgFloat{
+  0%   { transform: translate3d(0,0,0) scale(1); }
+  50%  { transform: translate3d(0,-8px,0) scale(1.02); }
+  100% { transform: translate3d(0,0,0) scale(1); }
+}
+
+/* Network animation hooks (used by bg-graph.html SVG classes) */
+.bg-circular .net{
+  transform-origin: 600px 350px;
+  animation: netRotate 52s linear infinite;
+}
+.bg-circular .rings circle{
+  transform-origin: 600px 350px;
+  animation: ringSpin 30s linear infinite;
+}
+.bg-circular .rings circle:nth-child(2){ animation-duration: 44s; animation-direction: reverse; }
+.bg-circular .rings circle:nth-child(3){ animation-duration: 60s; }
+
+/* Cheap “alive” links: pulse opacity instead of moving dashes */
+.bg-circular .links path{
+  stroke-dasharray: 16 12;          /* keep the dashed look */
+  stroke-linecap: round;
+  animation: linkPulse 8s ease-in-out infinite;
+  opacity: .55;
+}
+.bg-circular .links path:nth-child(2n){ animation-duration: 11s; opacity:.45; }
+.bg-circular .links path:nth-child(3n){ animation-duration: 13s; opacity:.40; }
+
+@keyframes linkPulse{
+  0%,100%{ opacity:.40; }
+  50%{ opacity:.68; }
+}
+
+.bg-circular .node{
+  transform-origin: center;
+  animation: nodePulse 4.2s ease-in-out infinite;
+}
+.bg-circular .n2{animation-delay:.2s}
+.bg-circular .n3{animation-delay:.4s}
+.bg-circular .n4{animation-delay:.6s}
+.bg-circular .n5{animation-delay:.8s}
+.bg-circular .n6{animation-delay:1.0s}
+.bg-circular .n7{animation-delay:1.2s}
+.bg-circular .n8{animation-delay:1.4s}
+
+@keyframes linkDash{ to{ stroke-dashoffset:-260; } }
+@keyframes nodePulse{
+  0%,100%{ transform: scale(1); filter:saturate(1); }
+  50%{ transform: scale(1.18); filter:saturate(1.35); }
+}
+@keyframes netRotate{ to{ transform: rotate(360deg); } }
+@keyframes ringSpin{ to{ transform: rotate(360deg); } }
+
+/* ===== Ensure content sits above background ===== */
+.siteheader, main, .sitefooter{
+  position: relative;
+  z-index: 10;
+}
+
+/* ===== Layout / Components ===== */
+.container{max-width:1020px; margin:0 auto; padding:0 20px;}
+.siteheader{
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background: rgba(247,250,255,0.78);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px) saturate(140%);
+}
+
+.headerrow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 12px 0;
+  gap: 14px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  color: var(--ink);
+  text-decoration:none;
+}
+.brandmark{
+  width:30px;height:30px;border-radius:10px;
+  display:grid; place-items:center;
+  background:
+    radial-gradient(circle at 28% 28%, rgba(47,128,237,0.22), transparent 55%),
+    radial-gradient(circle at 70% 35%, rgba(123,97,255,0.18), transparent 58%),
+    radial-gradient(circle at 45% 75%, rgba(20,184,166,0.14), transparent 60%),
+    rgba(255,255,255,0.75);
+  border:1px solid rgba(12,20,35,0.12);
+  box-shadow: var(--shadow2);
+}
+.brandtext{font-weight:900; letter-spacing:.2px}
+
+.nav{display:flex; gap:12px; flex-wrap:wrap; align-items:center;}
+.nav a{
+  color:var(--muted);
+  text-decoration:none;
+  padding:8px 10px;
+  border-radius:12px;
+  border:1px solid transparent;
+}
+.nav a:hover{
+  color:var(--ink);
+  border-color: rgba(12,20,35,0.10);
+  background: rgba(255,255,255,0.70);
+}
+
+.page{padding:22px 0 60px}
+
+.hero{
+  border-radius: var(--radius2);
+  padding:22px 20px;
+  border:1px solid rgba(12,20,35,0.12);
+  background:
+    linear-gradient(180deg, var(--card2), var(--card)),
+    radial-gradient(900px 420px at 18% 0%, rgba(47,128,237,0.12), transparent 60%),
+    radial-gradient(900px 420px at 82% 10%, rgba(123,97,255,0.10), transparent 60%),
+    radial-gradient(900px 420px at 50% 95%, rgba(20,184,166,0.08), transparent 60%);
+  box-shadow: var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+
+/* keep your orbit ring, but it won’t affect bg positioning now */
+.hero::after{
+  content:"";
+  position:absolute;
+  width:560px; height:560px;
+  right:-320px; top:-360px;
+  border-radius:999px;
+  border:1px dashed rgba(12,20,35,0.18);
+  transform: rotate(18deg);
+  animation: spin 22s linear infinite;
+  opacity:0.55;
+}
+@keyframes spin{to{transform: rotate(378deg)}}
+
+.kicker{
+  margin:0;
+  font: 900 0.78rem/1 var(--mono);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(12,20,35,0.60);
+}
+.hero h1{
+  margin:.45rem 0 .55rem;
+  font-size: clamp(1.55rem, 3.2vw, 2.25rem);
+  line-height:1.16;
+  letter-spacing:-0.02em;
+}
+.tagline{margin:0 0 .45rem; color:var(--ink); max-width:78ch;}
+.eventline{margin:0; color:var(--muted);}
+
+.cta{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
+
+.button{
+  display:inline-flex; align-items:center; gap:10px;
+  padding:10px 14px;
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(12,20,35,0.92), rgba(12,20,35,0.82));
+  color: rgba(255,255,255,0.95);
+  font-weight:900;
+  text-decoration:none;
+  border:1px solid rgba(12,20,35,0.14);
+  box-shadow: var(--shadow2);
+}
+.button:hover{filter:brightness(1.02); transform: translateY(-1px); text-decoration:none;}
+.button.secondary{
+  background: rgba(255,255,255,0.78);
+  color: var(--ink);
+  border:1px solid rgba(12,20,35,0.12);
+  box-shadow: none;
+}
+
+.content{
+  margin-top:18px;
+  border-radius: var(--radius2);
+  border:1px solid rgba(12,20,35,0.10);
+  background: rgba(255,255,255,0.76);
+  box-shadow: var(--shadow);
+  padding:18px 20px;
+}
+
+.content h2{
+  margin: 1.35rem 0 .55rem;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+}
+.content h3{
+  margin: 1.05rem 0 .35rem;
+  font-size: 1.06rem;
+  color: var(--ink);
+}
+.content p, .content li{color: var(--ink)}
+.content a{color: var(--a1)}
+.content a:hover{color: rgba(47,128,237,0.95);}
+
+.content blockquote{
+  margin:14px 0;
+  padding:12px 14px;
+  border-left: 3px solid rgba(47,128,237,0.55);
+  background: rgba(47,128,237,0.07);
+  border-radius: 14px;
+  color: rgba(12,20,35,0.78);
+}
+
+.content ul, .content ol{padding-left: 1.2rem}
+.content li{margin: .25rem 0}
+.content hr{border:none; border-top:1px solid var(--line); margin:18px 0}
+
+.content table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  margin: 14px 0;
+  border-radius: 16px;
+  overflow:hidden;
+  border:1px solid rgba(12,20,35,0.10);
+  background: rgba(255,255,255,0.88);
+}
+.content th, .content td{
+  padding: 11px 12px;
+  border-bottom:1px solid rgba(12,20,35,0.08);
+  vertical-align:top;
+}
+.content th{
+  color: rgba(12,20,35,0.70);
+  text-align:left;
+  font-weight:900;
+  font-family: var(--mono);
+  font-size: .88rem;
+  background: rgba(12,20,35,0.03);
+}
+.content tr:last-child td{border-bottom:none}
+.content td:first-child{
+  white-space:nowrap;
+  color: rgba(12,20,35,0.78);
+  font-family: var(--mono);
+}
+
+a[id]{scroll-margin-top: 86px;}
+
+.sitefooter{
+  border-top:1px solid rgba(12,20,35,0.10);
+  padding:16px 0;
+  color: var(--muted);
+  background: rgba(247,250,255,0.78);
+  backdrop-filter: blur(12px);
+}
+.sitefooter a{color: var(--muted); text-decoration:none}
+.sitefooter a:hover{color: var(--ink)}
+
+@media (max-width: 700px){
+  .nav{gap:6px}
+  .nav a{padding:7px 9px}
+  .content{padding:16px 16px}
+  .hero{padding:18px 16px}
+}
+
+/* ===== Force header to stay visible ===== */
+.siteheader{
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+/* Push the page content down so it doesn't hide under the fixed header */
+body{
+  padding-top: 72px; /* adjust if your header is taller */
+}
+
+/* If you have a .container wrapping the header, keep it full width */
+.siteheader .container{
+  max-width: 1020px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===== Break content into visual boxes ===== */
+.content.content-boxes{
+  background: transparent;           /* remove one big sheet look */
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* each section card starts at headings */
+.content-boxes h2{
+  position: relative;
+  margin: 18px 0 10px;
+  padding: 16px 18px;
+  border-radius: var(--radius2);
+  border: 1px solid rgba(12,20,35,0.10);
+  background: rgba(255,255,255,0.78);
+  box-shadow: var(--shadow2);
+}
+
+/* everything after an h2 belongs to that “card” visually */
+.content-boxes h2 + *{
+  position: relative;
+}
+/* ===== Section cards (one per H2) ===== */
+
+.content.content-boxes{
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.section-card{
+  position: relative;
+  border-radius: var(--radius2);
+  border: 1px solid rgba(12,20,35,0.10);
+  background: rgba(255,255,255,0.76);
+  box-shadow: var(--shadow2);
+  margin: 14px 0;
+  overflow: hidden;
+}
+
+.section-card__head{
+  position: relative;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(12,20,35,0.08);
+  background: rgba(255,255,255,0.82);
+}
+
+.section-card__head h2{
+  margin: 0;
+}
+
+.section-card__body{
+  padding: 14px 18px;
+}
+
+
+/* Spacing inside card */
+.section-card__body > :first-child{ margin-top: 0; }
+.section-card__body > :last-child{ margin-bottom: 0; }
+
+/* Your dashed “ant-line” circular accent on each card */
+.section-card::after{
+  content:"";
+  position:absolute;
+  width: 260px;
+  height: 260px;
+  right: -150px;
+  top: -150px;
+  border-radius: 999px;
+  border: 2px dashed rgba(12,20,35,0.14);
+  opacity: 0.40;
+  pointer-events:none;
+  animation: ringSpin 90s linear infinite;
+}
+
+@keyframes ringSpin{ to{ transform: rotate(360deg); } }
+
+/* Mobile: reduce decoration */
+@media (max-width: 700px){
+  .section-card__head, .section-card__body{ padding: 14px 14px; }
+  .section-card::after{ display:none; }
+}

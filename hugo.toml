@@ -1,0 +1,37 @@
+baseURL = "https://paraadapt.interactions.se/"
+languageCode = "en"
+title = "ParaAdapt Workshop"
+disableKinds = ["taxonomy", "term"]
+
+[params]
+  workshopTitle = "ParaAdapt: Parametric User Modeling & Adaptation for Navigating Complex Interactive Domains"
+  acronym = "ParaAdapt"
+  tagline = "Parametric interaction design for interpretable user models and controllable adaptation in complex interactive domains."
+  eventLine = "Active collaboration workshop (~2 hours), fully in-person. (Date/venue: Monday, June 8th 2026/ Pedagogen building, Gothenburg, SV)"
+  cfpEmail = "swen.gaudl@ait.gu.se"
+
+[menu]
+  [[menu.main]]
+    name = "Overview"
+    url = "/#overview"
+    weight = 10
+  [[menu.main]]
+    name = "Objectives"
+    url = "/#objectives"
+    weight = 20
+  [[menu.main]]
+    name = "Program"
+    url = "/#program"
+    weight = 30
+  [[menu.main]]
+    name = "Submissions"
+    url = "/#submissions"
+    weight = 40
+  [[menu.main]]
+    name = "Organizers"
+    url = "/#organizers"
+    weight = 50
+  [[menu.main]]
+    name = "Dissemination"
+    url = "/#dissemination"
+    weight = 60

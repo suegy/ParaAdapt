@@ -1,0 +1,11 @@
+{{- /*
+  Heading render hook.
+  Adds stable IDs and a data attribute so we can auto-wrap sections after render.
+*/ -}}
+{{- $level := .Level -}}
+{{- $text := .Text | plainify -}}
+{{- $id := .Anchor | default (anchorize $text) -}}
+
+<h{{ $level }} id="{{ $id }}" class="md-h md-h{{ $level }}" data-hlevel="{{ $level }}">
+  {{ .Text | safeHTML }}
+</h{{ $level }}>

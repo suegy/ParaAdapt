@@ -1,0 +1,12 @@
+{{ define "main" }}
+  <article class="page">
+    <header class="pagehead">
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}<p class="desc">{{ . }}</p>{{ end }}
+    </header>
+<p style="position:fixed;bottom:10px;right:10px;background:#ff0;padding:6px;z-index:9999;">
+  USING layouts/_default/single.html
+</p>
+     {{ partial "content-boxes.html" . }}
+  </article>
+{{ end }}

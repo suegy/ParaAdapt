@@ -1,0 +1,26 @@
+<header class="siteheader">
+  <div class="container headerrow">
+    <a class="brand" href="{{ "/" | relURL }}">
+      <span class="brandmark">⟡</span>
+      <span class="brandtext">{{ .Site.Params.acronym }}</span>
+    </a>
+
+    <nav class="nav">
+  {{ $isHome := .IsHome }}
+  {{ range .Site.Menus.main }}
+    {{ $u := .URL }}
+    {{ if hasPrefix $u "#" }}
+      <!-- Anchor: if not on homepage, point to homepage + anchor -->
+      {{ if $isHome }}
+        <a href="{{ $u }}">{{ .Name }}</a>
+      {{ else }}
+        <a href="{{ (printf "/%s" $u) | relURL }}">{{ .Name }}</a>
+      {{ end }}
+    {{ else }}
+      <!-- Normal link: make it baseURL-safe -->
+      <a href="{{ $u | relURL }}">{{ .Name }}</a>
+    {{ end }}
+  {{ end }}
+</nav>
+  </div>
+</header>

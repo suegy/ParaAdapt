@@ -1,0 +1,16 @@
+{{ define "main" }}
+  <article class="page">
+    <header class="hero">
+      <p class="kicker">{{ .Site.Params.acronym }}</p>
+      <h1>{{ .Site.Params.workshopTitle }}</h1>
+      <p class="tagline">{{ .Site.Params.tagline }}</p>
+      <p class="eventline">{{ .Site.Params.eventLine }}</p>
+      <div class="cta">
+        <a class="button" href="mailto:{{ .Site.Params.cfpEmail }}">Contact</a>
+        <a class="button secondary" href="#submissions">Submission info</a>
+      </div>
+    </header>
+
+     {{ partial "content-boxes.html" . }}
+  </article>
+{{ end }}

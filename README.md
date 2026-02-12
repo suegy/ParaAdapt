@@ -1,2 +1,2 @@
 # ParaAdapt
-webiste for UMAP workshop
+website for UMAP workshop

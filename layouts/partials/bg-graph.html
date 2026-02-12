@@ -1,0 +1,55 @@
+<div class="bg-graph bg-circular" aria-hidden="true">
+  <svg viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid meet" role="img">
+    <defs>
+      <linearGradient id="lnk" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="rgba(47,128,237,0.55)"/>
+        <stop offset="45%" stop-color="rgba(123,97,255,0.50)"/>
+        <stop offset="75%" stop-color="rgba(20,184,166,0.45)"/>
+        <stop offset="100%" stop-color="rgba(255,0,122,0.40)"/>
+      </linearGradient>
+
+      <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="1.8" result="b"/>
+        <feMerge>
+          <feMergeNode in="b"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+
+    <!-- Everything centered around (600,350) -->
+    <g class="net" opacity="0.95">
+      <!-- rings -->
+      <g class="rings" fill="none" stroke="rgba(12,20,35,0.16)" stroke-width="2">
+        <circle cx="600" cy="350" r="220"/>
+        <circle cx="600" cy="350" r="310" stroke="rgba(12,20,35,0.12)"/>
+        <circle cx="600" cy="350" r="140" stroke="rgba(12,20,35,0.18)"/>
+      </g>
+
+      <!-- links -->
+      <g class="links" fill="none" stroke="url(#lnk)" stroke-width="3" stroke-linecap="round" opacity="0.85">
+        <path d="M600 130 C 760 170, 860 280, 900 350"/>
+        <path d="M900 350 C 860 420, 760 530, 600 570"/>
+        <path d="M600 570 C 460 540, 350 450, 300 350"/>
+        <path d="M300 350 C 350 250, 460 160, 600 130"/>
+        <path d="M480 220 C 600 200, 720 220, 820 300"/>
+        <path d="M820 400 C 720 480, 600 500, 480 480"/>
+        <path d="M410 330 C 520 260, 680 260, 790 330"/>
+        <path d="M790 370 C 680 440, 520 440, 410 370"/>
+      </g>
+
+      <!-- nodes -->
+      <g>
+        <circle class="node n1" cx="600" cy="130" r="9" fill="rgba(47,128,237,0.85)"/>
+        <circle class="node n2" cx="900" cy="350" r="10" fill="rgba(123,97,255,0.78)"/>
+        <circle class="node n3" cx="600" cy="570" r="9" fill="rgba(20,184,166,0.80)"/>
+        <circle class="node n4" cx="300" cy="350" r="10" fill="rgba(245,158,11,0.75)"/>
+
+        <circle class="node n5" cx="820" cy="300" r="7" fill="rgba(255,0,122,0.70)"/>
+        <circle class="node n6" cx="820" cy="400" r="7" fill="rgba(47,128,237,0.70)"/>
+        <circle class="node n7" cx="480" cy="220" r="7" fill="rgba(123,97,255,0.68)"/>
+        <circle class="node n8" cx="480" cy="480" r="7" fill="rgba(20,184,166,0.68)"/>
+      </g>
+    </g>
+  </svg>
+</div>
