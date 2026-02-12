@@ -7,7 +7,7 @@ disableKinds = ["taxonomy", "term"]
   workshopTitle = "ParaAdapt: Parametric User Modeling & Adaptation for Navigating Complex Interactive Domains"
   acronym = "ParaAdapt"
   tagline = "Parametric interaction design for interpretable user models and controllable adaptation in complex interactive domains."
-  eventLine = "Active collaboration workshop (~2 hours), fully in-person. (Date/venue: Monday, June 8th 2026/ Pedagogen building, Gothenburg, SV)"
+  eventLine = "Active workshop (~2 hours), fully in-person. \n (Date/venue: Monday, 08.06.2026 / Pedagogen, Gothenburg, SV)"
   cfpEmail = "swen.gaudl@ait.gu.se"
 
 [menu]
