@@ -281,6 +281,16 @@ body{
   box-shadow: none;
 }
 
+/* Buttons inside Markdown/content cards */
+.content .button,
+.section-card .button{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+}
+
+.content .button{ margin-top: 8px; }
+
 .content{
   margin-top:18px;
   border-radius: var(--radius2);
@@ -303,6 +313,33 @@ body{
 .content p, .content li{color: var(--ink)}
 .content a{color: var(--a1)}
 .content a:hover{color: rgba(47,128,237,0.95);}
+
+/* Buttons inside content should NOT inherit normal link styling */
+.content a.button,
+.section-card a.button{
+  color: rgba(255,255,255,0.95);
+  background: linear-gradient(180deg, rgba(12,20,35,0.92), rgba(12,20,35,0.82));
+  border: 1px solid rgba(12,20,35,0.14);
+  text-decoration: none;
+}
+
+.content a.button:hover,
+.section-card a.button:hover{
+  color: rgba(255,255,255,0.95);
+  text-decoration: none;
+}
+
+/* Secondary button override inside content */
+.content a.button.secondary,
+.section-card a.button.secondary{
+  background: rgba(255,255,255,0.78);
+  color: var(--ink);
+  border: 1px solid rgba(12,20,35,0.12);
+}
+.content a.button.secondary:hover,
+.section-card a.button.secondary:hover{
+  color: var(--ink);
+}
 
 .content blockquote{
   margin:14px 0;
