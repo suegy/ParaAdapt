@@ -103,15 +103,19 @@ The workshop also welcomes work where parametric controls govern **procedural co
 2. Single Column
 3. [ACMART](https://www.overleaf.com/latex/templates/association-for-computing-machinery-acm-large-1-column-format-template/fsyrjmfzcwyy) 
 
-**Review process:**
-- Single-blind; aim for 2 reviews per submission (Program Committee)
-- Criteria: relevance to parametric user modeling/adaptation for complex-domain navigation; clarity; novelty; contribution to discussion and artefact pool; consideration of human-centric design approaches; ethics
 
 {{< button href="https://easychair.org/conferences/?conf=paraadapt2026" blank="1" >}}
 Submit your contribution ↗
 {{< /button >}}
 
-**Program Committee:** **TBA**
+**Review process:**
+- Single-blind; aim for 2 reviews per submission (Program Committee)
+- Criteria: relevance to parametric user modeling/adaptation for complex-domain navigation; clarity; novelty; contribution to discussion and artefact pool; consideration of human-centric design approaches; ethics
+
+**Program Committee:** 
+- **[Mathias Funk](https://research.tue.nl/en/persons/mathias-funk/)** (TU/e, NL)
+- **[Denise Lengyel](https://tincrow.net/)** (UU, SV)
+- **TBA**
 
 **Participation without submission:** Limited attend-only seats will be available to include practitioners/students to contribute to the labs and create a critical mass.
 
